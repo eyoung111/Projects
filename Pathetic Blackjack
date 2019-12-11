@@ -1,0 +1,129 @@
+import random
+deck_of_cards = (1, 1, 1, 1,
+                 2, 2, 2, 2,
+                 3, 3, 3, 3,
+                 4, 4, 4, 4,
+                 5, 5, 5, 5,
+                 6, 6, 6, 6,
+                 7, 7, 7, 7,
+                 8, 8, 8, 8,
+                 9, 9, 9, 9,
+                 10, 10, 10, 10)
+ 
+#The player and dealer's bank
+player_money = [100]
+dealer_money = [100]
+print('''
+     __          __  _                            _          ____  _            _           _            _    _ 
+     \ \        / / | |                          | |        |  _ \| |          | |         | |          | |  | |
+      \ \  /\  / ___| | ___ ___  _ __ ___   ___  | |_ ___   | |_) | | __ _  ___| | __      | | __ _  ___| | _| |
+       \ \/  \/ / _ | |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  |  _ <| |/ _` |/ __| |/ /  _   | |/ _` |/ __| |/ | |
+        \  /\  |  __| | (_| (_) | | | | | |  __/ | || (_) | | |_) | | (_| | (__|   <  | |__| | (_| | (__|   <|_|
+         \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  |____/|_|\__,_|\___|_|\_\  \____/ \__,_|\___|_|\_(_)                                                                                                                                                                   
+''')
+
+while sum(player_money) > 0 or sum(dealer_money) > 0:
+  #The two cards you initially get and hand
+  card1 = deck_of_cards[random.randint(0, len(deck_of_cards))-1]
+  card2 = deck_of_cards[random.randint(0, len(deck_of_cards))-1]
+  hand = [card1, card2]
+  #These are the dealer's cards to get
+  dealer_card1 = deck_of_cards[random.randint(0, len(deck_of_cards))-1]
+  dealer_card2 = deck_of_cards[random.randint(0, len(deck_of_cards))-1]
+  dealer_hand = [dealer_card1, dealer_card2]
+
+  #The dealer's hand actually being placed.
+  def Dealers_Cards():
+    if sum(dealer_hand) > 21:
+      return sum(dealer_hand)
+      #Dealer will bust
+    if sum(dealer_hand) <= 17:
+      #Makes him draw again if it's lower than or equal to 17
+      while sum(dealer_hand) < 17:
+        new_card = deck_of_cards[random.randint(0, len(deck_of_cards))-1]
+        dealer_hand.append(new_card)
+    else:
+      #If his hand is between 17~21
+      return sum(dealer_hand)
+  Dealers_Cards()
+  #The bets being placed, can only put in numbers
+  while True:
+    try:
+      bet = int(input('How much are you going to bet?\n'))
+      break
+    except:
+      print('That\'s not a valid option.')
+  
+  print('\n*Dealer slapped two cards in front of you!*\n')
+  print('You got a '+str(card1)+' and '+str(card2))
+  #To see if you'll bust in the beginning
+  if sum(hand) > 21:
+    print('You busted! Try again!')
+  elif sum(hand) < 21:
+    while sum(hand) < 21: 
+      print('\n'+str(hand)+'\n')
+      play_or_draw = input('Choose to either stay or hit:\n')
+      #Pick to play or draw
+      if play_or_draw == 'hit' or play_or_draw == 'Hit':
+        #Choosing to play or continue drawing till bust
+        new_card = deck_of_cards[random.randint(0, len(deck_of_cards))-1]
+        hand.append(new_card)
+        print('You got a '+str(new_card)+'!')
+        if sum(hand) > 21:
+          dealer_money.append(bet)
+          player_money.append((bet)*(-1))
+          print('You busted! Please try again!')
+          break
+        #This stage is when you're adding a card to your hand
+        elif sum(hand) == 21:
+          player_money.append(bet)
+          dealer_money.append((bet)*(-1))
+          print('Think you just got that Blackjack! Congrats!')
+          break
+      elif play_or_draw == 'stay' or play_or_draw == 'Stay':
+        #Choosing to play the hand
+        if sum(dealer_hand) > 21:
+          #WON
+          player_money.append(bet)
+          dealer_money.append((bet)*(-1))
+          print('The dealer drew a '+str(dealer_hand)+' he busted! That\'s some luck!')
+          break
+        elif sum(hand) > sum(dealer_hand):
+          player_money.append(bet)
+          dealer_money.append((bet)*(-1))
+          print('Dealer had a '+str(dealer_hand))
+          print('Dang, you won!')
+          break
+        else:
+          dealer_money.append(bet)
+          player_money.append((bet)*(-1))
+          print('Dealer had a '+str(dealer_hand))
+          print('Dealer got ya this time...Try again later!')
+          break  
+      else:
+        print('You did not pick a correct option.')
+        continue
+  elif sum(hand) == sum(dealer_hand):
+    print('It\'s a tie! Do it again.')
+  #If you get 21 you automatically win
+  else:
+    player_money.append(bet)
+    dealer_money.append((bet)*(-1))
+    print('You got Blackjack! You win!')
+  
+  print('\nYou currently have '+str(sum(player_money))+' dollars!')
+
+  #If you got less then 0 dollars or the enemy does, you go broke.
+  if sum(player_money) <= 0:
+    print('You went broke!')
+    break
+  elif sum(dealer_money) <= 0:
+    print('Dealer called it quits!')
+    break
+
+  #Do you wanna play a game?
+  play_again = input('\nDo you want to play again?\nYes to go again or no to stop!\n')
+  if play_again == 'yes' or play_again == 'Yes':
+    continue
+  else:
+    break
