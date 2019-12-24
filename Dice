@@ -1,0 +1,67 @@
+import random
+num = random.randint(1, 6)
+num2 = random.randint(1, 6)
+print("""
+         _    _      _                            _____     
+        | |  | |    | |                          |_   _|    
+        | |  | | ___| | ___ ___  _ __ ___   ___    | | ___  
+        | |/\| |/ _ | |/ __/ _ \| '_ ` _ \ / _ \   | |/ _ \ 
+        \  /\  |  __| | (_| (_) | | | | | |  __/   | | (_) |
+         \/  \/ \___|_|\___\___/|_| |_| |_|\___|   \_/\___/ 
+                                                      
+                                                      
+""")
+print("""
+       ▄████▄   ██░ ██  ▒█████      ██░ ██  ▄▄▄       ███▄    █ 
+      ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒   ▓██░ ██▒▒████▄     ██ ▀█   █ 
+      ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒   ▒██▀▀██░▒██  ▀█▄  ▓██  ▀█ ██▒
+      ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░   ░▓█ ░██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒
+      ▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░   ░▓█▒░██▓ ▓█   ▓██▒▒██░   ▓██░
+      ░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░     ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ 
+      ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░     ▒ ░▒░ ░  ▒   ▒▒ ░░ ░░   ░ ▒░
+      ░         ░  ░░ ░░ ░ ░ ▒      ░  ░░ ░  ░   ▒      ░   ░ ░ 
+      ░ ░       ░  ░  ░    ░ ░      ░  ░  ░      ░  ░         ░ 
+      ░                                                         
+""")
+#The wager
+bet = input('How much will you wager?!\n')
+
+#This is me and your roll
+def cho_han(dice1, dice2):
+  roll = dice1+dice2 
+  if roll%2 == 0:
+    print("\nYou rolled Evens!")
+    print("It's a "+str(dice1)+" and "+str(dice2)+"!")
+  elif roll%2 == 1:
+    print("\nYou rolled Odds!")
+    print("It's a "+str(dice1)+ " and "+str(dice2)+"!")
+         
+cho_han(num, num2)
+
+#Dr.Evil Dice + Roll
+num3 = random.randint(1, 6)
+num4 = random.randint(1, 6)
+
+def cho_han2(dice1, dice2):
+  roll = dice1+dice2 
+  if (roll % 2) == 0:
+    print("\nDr. Evil has rolled Evens!")
+  else:
+    print("\nDr. Evil has rolled Odds!")
+  if(roll%2) == 0:
+    print("It's a "+str(dice1)+" and "+str(dice2)+"!")
+  else:
+    print("It's a "+str(dice1)+ " and "+str(dice2)+"!")
+         
+cho_han2(num3, num4)
+
+#This is the bet won/lost for the bet.
+def versus(num, num2, num3, num4, bet):
+  if (int(num)+int(num2)) > (int(num3)+int(num4)):
+    print('\nYou won the bet! '+str(int(bet)*2)+' dollars goes to you!')
+  elif (int(num)+int(num2)) == (int(num3)+int(num4)):
+    print('\nIt\'s a tie!')
+  else:
+    print('\nYou lost the bet! '+str(bet)+' dollars goes to Dr.Evil!')
+
+versus(num, num2, num3, num4, bet)
