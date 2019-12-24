@@ -1,0 +1,33 @@
+#Plane_Tickets Modifier
+
+print("Hey, we're going to see what's your total cost!\n")
+def Travel(trip, rw, lw):
+  cost_plane = input('How much is the Plane cost?\n')
+  trip['Plane'] = int(cost_plane)
+  cost_hotel = input('Okay, now how much does the Hotel cost?\n')
+  trip['Hotel'] = int(cost_hotel)
+  num_nights = int(input('Alright...and how many Nights will you stay?\n'))
+  trip['Nights'] = int(num_nights)
+  while True:
+    try:
+      budget_info = input('Do you have a specific budget? If so, enter it.\n')
+      trip['Budget'] = int(budget_info)
+      break
+    except ValueError:
+      print('Input a number!')
+      
+  print("\nThanks we'll print out this information!\n")
+  print('Travel Summary'.center(rw+lw, '.'))
+  for x, i in trip.items():
+    print(str(x).ljust(rw, '.'), str(i).rjust(lw, ' '))
+  print('-'.center(rw+lw, ('-')))
+  l_trip = list(cost_of_trip.values())
+  total = l_trip[0]+(l_trip[1]*l_trip[2])
+  print("\nYou total cost of for the trip will be "+str(total)+'.')
+  if trip['Budget'] > 0:
+    print(str(l_trip[3] - total)+' is your remaining budget.')
+  else:
+    return None
+
+cost_of_trip = {'Plane':'', 'Hotel':'', 'Nights':'', 'Budget':''}
+Travel(cost_of_trip, 20, 3)
