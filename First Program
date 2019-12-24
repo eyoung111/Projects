@@ -1,0 +1,15 @@
+ #Just the standard prices
+tickets = int(input("How much are the cost of the plane tickets?\n"))
+hotel = int(input("How much is the hotel per night?\n"))
+nights = int(input("number of nights?\n"))
+sales_tax = .20
+fees = int(input("Is there any extra admin fees and taxes per night?\n"))
+budget = int(input("What's your budget?\n"))
+train = 0
+#Prices Calculation
+stay_fee = (hotel*nights)+(fees*nights)+train
+whats_left = stay_fee-budget
+
+print("\nThe cost of your stay is: \n"+str(int(stay_fee)))
+print("Your current budget is: \n"+str(int(budget)))
+print("Your remaining budget is:\n"+str(int(whats_left)))
