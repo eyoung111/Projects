@@ -1,0 +1,41 @@
+premium = 125.00
+flat = 20.00
+def cost_of_ground_shipping(weight):
+  if weight > 10:
+    cost = weight*4.75
+  elif weight >= 6:
+    cost = weight*4.00
+  elif weight >= 2:
+    cost = weight*3.00
+  else:
+    cost = weight*1.50
+  return cost+flat
+  
+cost_of_ground_shipping(0)
+
+def cost_of_drone_shipping(weight):
+  if weight > 10:
+    cost = weight*14.25
+  elif weight >= 6:
+    cost = weight*12.00   
+  elif weight >= 2:
+    cost = weight*9.00   
+  else:
+    cost = weight*4.50
+  return cost
+  
+cost_of_drone_shipping(0)
+
+def which_better(weight):
+  ground = cost_of_ground_shipping(weight)
+  drone = cost_of_drone_shipping(weight)
+  if ground < drone and ground < premium:
+    return ("The cost of ground shipping is "+str(ground)+", this is the cheapest method. Compared to drone shipping which is "+str(drone)+" or premium shipping, being "+str(premium)+".")
+  elif drone < ground and drone < premium:
+    return ("The cost of drone shipping is "+str(drone)+", this is the cheapest method. Compared to ground shipping which is "+str(ground)+" or premium shipping, being "+str(premium)+".")
+  else:
+    return ("The cost of premium shipping is "+str(premium)+", this is the cheapest method. Compared to ground shipping which is "+str(ground)+" or drone shipping, being"+str(drone)+".")
+  
+
+    
+print(which_better(4))
